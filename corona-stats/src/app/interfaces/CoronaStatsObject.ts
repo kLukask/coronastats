@@ -1,8 +1,6 @@
 export interface CoronaStatsObject {
-  results: {
-    cases: number
-    death: number
+    cases: number;
+    deaths: number
     recovered: number
     active: number
-  };
 }

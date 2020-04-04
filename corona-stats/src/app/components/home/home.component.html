@@ -1,39 +1,21 @@
 <div class="home-container">
-  <!-- <div class="home-container__stats">
-    <div>
-      <h1>Cases</h1>
-      <p>{{ coronaStats?.cases }}</p>
-    </div>
-    <div>
-      <h1>Deaths</h1>
-      <p>{{ coronaStats?.deaths }}</p>
-    </div>
-    <div>
-      <h1>Active</h1>
-      <p>{{ coronaStats?.active }}</p>
-    </div>
-    <div>
-    <h1>Recovered</h1>
-    <p>{{ coronaStats?.recovered }}</p>
-    </div>
-  </div> -->
   <div id="map">
 
   </div>
 
   <div class="side-panel-stats">
     <div class="world-stats">
-      <p class="world-stats__total-cases">{{ this.coronaCountryStats[0].cases | number: '2.' }}</p>
+      <p class="world-stats__total-cases">{{ this.coronaStats?.cases | number: '2.' }}</p>
       <div class="world-stats__current-cases">
-        <p>{{ this.coronaCountryStats[0].deaths | number: '2.' }}</p>
+        <p>{{ this.coronaStats?.deaths | number: '2.' }}</p>
         <p>Deaths</p>
       </div>
       <div class="world-stats__current-cases">
-        <p>{{ this.coronaCountryStats[0].recovered | number: '2.' }}</p>
+        <p>{{ this.coronaStats?.recovered | number: '2.' }}</p>
         <p>Recoveries</p>
       </div>
       <div class="world-stats__current-cases">
-        <p>{{ this.coronaCountryStats[0].active | number: '2.' }}</p>
+        <p>{{ this.coronaStats?.active | number: '2.' }}</p>
         <p>Active cases</p>
       </div>
     </div>

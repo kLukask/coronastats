@@ -18,11 +18,12 @@ export class HomeComponent implements OnInit {
   constructor(protected getDataService: GetDataService) { }
 
   coronaStats: CoronaStatsObject;
-  coronaCountryStats: CoronaCountriesStatsOjbect[];
+  // Add object interface later on
+  coronaCountryStats: any;
   getStats = new NovelCovid();
 
   ngOnInit() {
-    //this.getAllCoronaStats();
+    this.getAllCoronaStats();
     this.getAllCoronaCountriesStats();
 
     const map = L.map('map', {
@@ -46,15 +47,13 @@ export class HomeComponent implements OnInit {
 
   }
 
-  getAllCoronaStats() {
-    this.getDataService.getData().subscribe((results) => {
-      this.coronaStats = results;
-    });
+  async getAllCoronaStats() {
+    this.coronaStats = await this.getStats.all();
   }
 
   async getAllCoronaCountriesStats() {
-    const result = await this.getStats.countries();
-    console.log('hello' + result);
+    // Add object interface later on
+    this.coronaCountryStats = await this.getStats.countries();
   }
 
 }
