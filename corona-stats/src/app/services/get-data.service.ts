@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { CoronaStatsObject } from '../interfaces/CoronaStatsObject';
+import { CoronaCountriesStatsOjbect } from '../interfaces/CoronaCountriesStatsObject';
 
 @Injectable({
   providedIn: 'root'
@@ -15,6 +16,6 @@ export class GetDataService {
   }
 
   getCountryData(): Observable<any> {
-    return this.http.get('https://corona.lmao.ninja/countries');
+    return this.http.get<CoronaCountriesStatsOjbect>('https://corona.lmao.ninja/countries');
   }
 }

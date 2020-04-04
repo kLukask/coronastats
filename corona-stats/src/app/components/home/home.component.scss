@@ -1,47 +1,61 @@
 .home-container {
   display: flex;
-  flex-flow: column;
+  flex-flow: row wrap;
+  height: 100%;
 
-  .home-container__stats {
-    display: flex;
-    flex-flow: column;
-    justify-content: space-around;
-    width: 100%;
-    height: 30%;
-    background-color: #C2948A;
+  .side-panel-stats {
+    width: 20%;
+    height: 100%;
 
-    div {
-      width: 100%;
+    .world-stats {
       display: flex;
-      flex-flow: column;
-      align-items: center;
+      flex-flow: row wrap;
       justify-content: center;
-      text-align: center;
-      background-color: #C2948A;
+      align-items: center;
+      width: 100%;
+      height: 20%;
+      border-bottom: 2px solid black;
 
-      h1 {
-        width: 100%;
-        color: #2B303A;
-        font-size: 4em;
+      p {
         margin: 0;
       }
 
-      p {
+      .world-stats__total-cases {
+        font-size: 2.5rem;
+        width: 100%;
         font-weight: bold;
-        font-size: 3em;
+        text-align: center;
       }
+
+      .world-stats__current-cases {
+        display: flex;
+        flex-flow: column;
+        align-items: center;
+        width: 30%;
+
+        p {
+          font-size: 1.2rem;
+          font-weight: bold;
+        }
+
+        p:nth-child(2) {
+          font-size: 0.8rem;
+          color: grey;
+        }
+      }
+    }
+
+    .individual-country {
+      display: flex;
+      flex-flow: column;
+      width: 100%;
+      height: 80%;
+      overflow-y: scroll;
     }
   }
 
-
-  .home-container__timeline {
-    width: 100%;
-    height: 15%;
-    background-color: red;
-  }
-
   #map {
-    height: 300px;
-    width: 100%;
+    height: 100%;
+    width: 80%;
   }
 }

@@ -20,4 +20,29 @@
   <div id="map">
 
   </div>
+
+  <div class="side-panel-stats">
+    <div class="world-stats">
+      <p class="world-stats__total-cases">{{ this.coronaCountryStats[0].cases | number: '2.' }}</p>
+      <div class="world-stats__current-cases">
+        <p>{{ this.coronaCountryStats[0].deaths | number: '2.' }}</p>
+        <p>Deaths</p>
+      </div>
+      <div class="world-stats__current-cases">
+        <p>{{ this.coronaCountryStats[0].recovered | number: '2.' }}</p>
+        <p>Recoveries</p>
+      </div>
+      <div class="world-stats__current-cases">
+        <p>{{ this.coronaCountryStats[0].active | number: '2.' }}</p>
+        <p>Active cases</p>
+      </div>
+    </div>
+    <div class="individual-country">
+      <div class="individual-country__stats"  *ngFor="let singleCountry of coronaCountryStats | slice: 1">
+        <img src='{{ singleCountry.countryInfo.flag }}'>
+        <p>{{ singleCountry.country }}</p>
+        <p>{{ singleCountry.cases }}</p>
+      </div>
+    </div>
+  </div>
 </div>
