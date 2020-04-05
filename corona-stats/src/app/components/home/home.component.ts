@@ -21,12 +21,11 @@ export class HomeComponent implements OnInit {
   // Add object interface later on
   coronaCountryStats: any;
   getStats = new NovelCovid();
+  leafletMap: any;
 
   ngOnInit() {
-    this.getAllCoronaStats();
-    this.getAllCoronaCountriesStats();
 
-    const map = L.map('map', {
+    this.leafletMap = L.map('map', {
       center: [13.7466, 100.5393],
       zoom: 4
     });
@@ -35,16 +34,11 @@ export class HomeComponent implements OnInit {
       'https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}', {
       attribution: 'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ',
       maxZoom: 16,
-      minZoom: 2
-    }).addTo(map);
+      minZoom: 3
+    }).addTo(this.leafletMap);
 
-    const mapCircle = L.circle([51.505, -0.09], {
-      color: 'red',
-      radius: 200
-    }).addTo(map);
-
-    mapCircle.bindPopup("This is a popup").openPopup();
-
+    this.getAllCoronaStats();
+    this.getAllCoronaCountriesStats();
   }
 
   async getAllCoronaStats() {
@@ -53,7 +47,35 @@ export class HomeComponent implements OnInit {
 
   async getAllCoronaCountriesStats() {
     // Add object interface later on
-    this.coronaCountryStats = await this.getStats.countries();
+      await this.getStats.countries().then((result) => {
+      this.coronaCountryStats = result;
+      this.processPopups();
+    });
+  }
+
+  processPopups() {
+    console.log(this.coronaCountryStats);
+    for (const country of this.coronaCountryStats) {
+      console.log(country.countryInfo);
+      const mapCircle = L.circle([country.countryInfo.lat, country.countryInfo.long], {
+        color: 'red',
+        radius: country.cases
+      }).addTo(this.leafletMap);
+
+      const popup = L.popup()
+      .setContent('test');
+
+      mapCircle.bindPopup(popup);
+
+      mapCircle.on('mouseover', function(e) {
+        this.openPopup();
+      });
+
+      mapCircle.on('mouseout', function(e) {
+        this.closePopup();
+      });
+
+    }
   }
 
 }

@@ -84,3 +84,17 @@
     width: 80%;
   }
 }
+
+::ng-deep .leaflet-popup-content-wrapper {
+  background-color: red;
+  height: 300px;
+  width: 300px;
+}
+
+::ng-deep .leaflet-popup-tip-container {
+  display: none;
+}
+
+::ng-deep .leaflet-container a.leaflet-popup-close-button {
+  display: none;
+}
