@@ -86,9 +86,36 @@
 }
 
 ::ng-deep .leaflet-popup-content-wrapper {
-  background-color: red;
-  height: 300px;
-  width: 300px;
+  .testingclass {
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+
+    .country-name {
+      font-size: 1.1rem;
+      width: 100%;
+      text-align: center;
+    }
+
+    img {
+      height: 100px;
+      width: 100%;
+      border-radius: 10px 10px 0 0;
+    }
+
+    p {
+      margin: 0;
+      padding: 2px;
+      font-weight: bold;
+      width: 70%;
+    }
+  }
+
+  padding: 0;
+  height: 200px;
+  width: 150px;
+  background-color: transparent;
 }
 
 ::ng-deep .leaflet-popup-tip-container {
@@ -97,4 +124,9 @@
 
 ::ng-deep .leaflet-container a.leaflet-popup-close-button {
   display: none;
+}
+
+::ng-deep .leaflet-popup-content {
+  margin: 0;
+  width: auto;
 }

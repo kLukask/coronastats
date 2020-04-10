@@ -54,16 +54,20 @@ export class HomeComponent implements OnInit {
   }
 
   processPopups() {
-    console.log(this.coronaCountryStats);
     for (const country of this.coronaCountryStats) {
-      console.log(country.countryInfo);
       const mapCircle = L.circle([country.countryInfo.lat, country.countryInfo.long], {
         color: 'red',
         radius: country.cases
       }).addTo(this.leafletMap);
 
       const popup = L.popup()
-      .setContent('test');
+      .setContent(`<div class="testingclass">
+                   <img src=${country.countryInfo.flag} />
+                   <p class="country-name">${country.country}</p>
+                   <p>Cases: ${country.cases}</p>
+                   <p>Recoveries: ${country.recovered}</p>
+                   <p>Deaths: ${country.deaths}</p>
+                   </div>`);
 
       mapCircle.bindPopup(popup);
 
