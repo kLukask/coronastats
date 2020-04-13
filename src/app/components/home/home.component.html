@@ -20,8 +20,25 @@
       </div>
     </div>
     <div class="individual-country">
-      <div class="individual-country__stats"  *ngFor="let singleCountry of coronaCountryStats | slice: 1">
+      <div class="individual-country__search-bar">
+        <input placeholder="Search" [(ngModel)]="searchText" />
+      </div>
+      <div class="individual-country__stats" *ngFor="let singleCountry of coronaCountryStats | searchFilter: searchText">
         <img src='{{ singleCountry.countryInfo.flag }}'>
+        <p>{{ singleCountry.country }}</p>
+        <p>{{ singleCountry.cases }}</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="mobile-search-bar">
+    <input placeholder="Search country..." (click)="showStatsMobile = true" [(ngModel)]="searchText"  />
+    <div class="close-icon" (click)="showStatsMobile = false" >
+      <img src="../../../assets/close_icon.svg" />
+    </div>
+    <div class="mobile-search-bar__stats" *ngIf="showStatsMobile">
+      <div class="individual-country" *ngFor="let singleCountry of coronaCountryStats | searchFilter: searchText">
+        <img class="country-flag" src='{{ singleCountry.countryInfo.flag }}'>
         <p>{{ singleCountry.country }}</p>
         <p>{{ singleCountry.cases }}</p>
       </div>

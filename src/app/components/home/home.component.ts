@@ -4,6 +4,7 @@ import { CoronaStatsObject } from 'src/app/interfaces/CoronaStatsObject';
 import { CoronaCountriesStatsOjbect } from 'src/app/interfaces/CoronaCountriesStatsObject';
 
 import { NovelCovid } from 'novelcovid';
+import _ from 'lodash';
 
 // Leaflet maps - Has to be declared as 'L'
 declare let L;
@@ -22,14 +23,24 @@ export class HomeComponent implements OnInit {
   coronaCountryStats: any;
   novelCovid = new NovelCovid();
   leafletMap: any;
+  searchText: string;
+  showStatsMobile: boolean;
 
   ngOnInit() {
 
     // Initialise map
     this.leafletMap = L.map('map', {
       center: [13.7466, 100.5393],
-      zoom: 4
+      zoom: 2,
+      zoomControl: false
     });
+
+    // Set map bounds to make sure user can't navigate too far from the center
+    this.leafletMap.setMaxBounds(this.leafletMap.getBounds());
+    // Move zoom buttons to the bottom right corner
+    L.control.zoom({
+      position: 'bottomright'
+    }).addTo(this.leafletMap);
 
     // Add tile layer to the map
     const esriLayer = L.tileLayer(
@@ -45,17 +56,18 @@ export class HomeComponent implements OnInit {
     this.getAllCoronaCountriesStats();
   }
 
-  //
+  // Get corona stats for total cases
   async getAllCoronaStats() {
     this.coronaStats = await this.novelCovid.all();
     console.log(new Date(this.coronaStats.updated));
   }
 
+  // Get corona stats for each individual country
   async getAllCoronaCountriesStats() {
     // Add object interface later on
-      await this.novelCovid.countries(null, "cases").then((result) => {
+      // Sort by total cases
+      await this.novelCovid.countries(null, 'cases').then((result) => {
       this.coronaCountryStats = result;
-      console.log(this.coronaCountryStats);
       this.processPopups();
     });
 
@@ -96,5 +108,4 @@ export class HomeComponent implements OnInit {
 
     }
   }
-
 }
