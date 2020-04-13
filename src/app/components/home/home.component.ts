@@ -20,16 +20,18 @@ export class HomeComponent implements OnInit {
   coronaStats: CoronaStatsObject;
   // Add object interface later on
   coronaCountryStats: any;
-  getStats = new NovelCovid();
+  novelCovid = new NovelCovid();
   leafletMap: any;
 
   ngOnInit() {
 
+    // Initialise map
     this.leafletMap = L.map('map', {
       center: [13.7466, 100.5393],
       zoom: 4
     });
 
+    // Add tile layer to the map
     const esriLayer = L.tileLayer(
       'https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}', {
       attribution: 'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ',
@@ -37,29 +39,39 @@ export class HomeComponent implements OnInit {
       minZoom: 3
     }).addTo(this.leafletMap);
 
+    // Get total corona stats
     this.getAllCoronaStats();
+    // Get stats from every country
     this.getAllCoronaCountriesStats();
   }
 
+  //
   async getAllCoronaStats() {
-    this.coronaStats = await this.getStats.all();
+    this.coronaStats = await this.novelCovid.all();
+    console.log(new Date(this.coronaStats.updated));
   }
 
   async getAllCoronaCountriesStats() {
     // Add object interface later on
-      await this.getStats.countries().then((result) => {
+      await this.novelCovid.countries(null, "cases").then((result) => {
       this.coronaCountryStats = result;
+      console.log(this.coronaCountryStats);
       this.processPopups();
     });
+
   }
 
+  // Add popus to the map
   processPopups() {
+    // Loop through the array of every country
     for (const country of this.coronaCountryStats) {
+      // Create a circle popup and place it on top of every country
       const mapCircle = L.circle([country.countryInfo.lat, country.countryInfo.long], {
         color: 'red',
         radius: country.cases
       }).addTo(this.leafletMap);
 
+      // Add content to the popup
       const popup = L.popup()
       .setContent(`<div class="testingclass">
                    <img src=${country.countryInfo.flag} />
@@ -69,12 +81,15 @@ export class HomeComponent implements OnInit {
                    <p>Deaths: ${country.deaths}</p>
                    </div>`);
 
+      // Bind popup to the circle
       mapCircle.bindPopup(popup);
 
+      // Show popup content when user hovers the circle
       mapCircle.on('mouseover', function(e) {
         this.openPopup();
       });
 
+      // Hide popup content when user moves mouse away
       mapCircle.on('mouseout', function(e) {
         this.closePopup();
       });

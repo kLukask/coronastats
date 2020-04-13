@@ -140,5 +140,8 @@
       }
     }
   },
-  "defaultProject": "corona-stats"
+  "defaultProject": "corona-stats",
+  "cli": {
+    "analytics": "10152984-2506-488b-8d60-6f2641160faa"
+  }
 }

@@ -1,5 +1,6 @@
 export interface CoronaStatsObject {
-    cases: number;
+    updated: number
+    cases: number
     deaths: number
     recovered: number
     active: number
