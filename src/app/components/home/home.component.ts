@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { GetDataService } from 'src/app/services/get-data.service';
 import { CoronaStatsObject } from 'src/app/interfaces/CoronaStatsObject';
 import { CoronaCountriesStatsOjbect } from 'src/app/interfaces/CoronaCountriesStatsObject';
 
 import { NovelCovid } from 'novelcovid';
 import _ from 'lodash';
+import { IndividualCountryDialogComponent } from './individual-country-dialog/individual-country-dialog.component';
 
 // Leaflet maps - Has to be declared as 'L'
 declare let L;
@@ -16,7 +18,7 @@ declare let L;
 })
 export class HomeComponent implements OnInit {
 
-  constructor(protected getDataService: GetDataService) { }
+  constructor(protected getDataService: GetDataService, protected dialog: MatDialog) { }
 
   coronaStats: CoronaStatsObject;
   // Add object interface later on
@@ -66,7 +68,7 @@ export class HomeComponent implements OnInit {
   async getAllCoronaCountriesStats() {
     // Add object interface later on
       // Sort by total cases
-      await this.novelCovid.countries(null, 'cases').then((result) => {
+      await this.novelCovid.countries(null, { sort: 'cases'}).then((result) => {
       this.coronaCountryStats = result;
       this.processPopups();
     });
@@ -108,4 +110,16 @@ export class HomeComponent implements OnInit {
 
     }
   }
+
+
+  openIndividualCountryDialog(stats) {
+    const dialogRef = this.dialog.open(IndividualCountryDialogComponent, {
+      height: '500px',
+      width: '900px',
+      data: {
+        countryStats: stats
+      }
+    });
+  }
+
 }

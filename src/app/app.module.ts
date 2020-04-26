@@ -5,6 +5,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
+import { MatDialogModule } from '@angular/material/dialog';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -12,12 +13,14 @@ import { HomeComponent } from './components/home/home.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
 import { SearchFilterPipe } from './searchFilterPipe';
+import { IndividualCountryDialogComponent } from './../app/components/home/individual-country-dialog/individual-country-dialog.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    SearchFilterPipe
+    SearchFilterPipe,
+    IndividualCountryDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -28,9 +31,11 @@ import { SearchFilterPipe } from './searchFilterPipe';
     MatFormFieldModule,
     MatInputModule,
     FormsModule,
-    MatIconModule
+    MatIconModule,
+    MatDialogModule
   ],
   providers: [],
+  entryComponents: [IndividualCountryDialogComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

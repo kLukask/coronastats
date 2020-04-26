@@ -1,0 +1,24 @@
+<div class="individual-modal-container">
+  <div class="individual-modal-container__heading-section">
+    <img class="heading-section__country-flag" [src]=this.data.countryStats.countryInfo.flag />
+    <p class="heading-section__country-name">{{ this.data.countryStats.country }}</p>
+  </div>
+  <div class="individual-modal-container__stats-section">
+    <div class="stats-section__cases">
+      <p class="cases__heading">Cases</p>
+      <p class="cases__data">{{ this.data.countryStats.cases }}</p>
+    </div>
+    <div class="stats-section__cases">
+      <p class="cases__heading">Active</p>
+      <p class="cases__data">{{ this.data.countryStats.active }}</p>
+    </div>
+    <div class="stats-section__cases">
+      <p class="cases__heading">Recovered</p>
+      <p class="cases__data">{{ this.data.countryStats.recovered }}</p>
+    </div>
+    <div class="stats-section__cases">
+      <p class="cases__heading">Deaths</p>
+      <p class="cases__data">{{ this.data.countryStats.deaths }}</p>
+    </div>
+  </div>
+</div>

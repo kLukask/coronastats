@@ -23,7 +23,7 @@
       <div class="individual-country__search-bar">
         <input placeholder="Search" [(ngModel)]="searchText" />
       </div>
-      <div class="individual-country__stats" *ngFor="let singleCountry of coronaCountryStats | searchFilter: searchText">
+      <div class="individual-country__stats" *ngFor="let singleCountry of coronaCountryStats | searchFilter: searchText" (click)="openIndividualCountryDialog(singleCountry)">
         <img src='{{ singleCountry.countryInfo.flag }}'>
         <p>{{ singleCountry.country }}</p>
         <p>{{ singleCountry.cases }}</p>
