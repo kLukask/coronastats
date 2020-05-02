@@ -1,3 +1,6 @@
+<div class="overlay-container" *ngIf="showOverlay">
+  <button class="overlay-container__button" (click)="refresh()">Refresh</button>
+</div>
 <div class="home-container">
   <div id="map">
 
@@ -31,7 +34,7 @@
     </div>
   </div>
 
-  <div class="mobile-search-bar">
+  <div class="mobile-search-bar" [class.expanded]="showStatsMobile">
     <input placeholder="Search country..." (click)="showStatsMobile = true" [(ngModel)]="searchText"  />
     <div class="close-icon" (click)="showStatsMobile = false" >
       <img src="../../../assets/close_icon.svg" />

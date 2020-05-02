@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { GetDataService } from 'src/app/services/get-data.service';
 import { CoronaStatsObject } from 'src/app/interfaces/CoronaStatsObject';
@@ -7,6 +7,7 @@ import { CoronaCountriesStatsOjbect } from 'src/app/interfaces/CoronaCountriesSt
 import { NovelCovid } from 'novelcovid';
 import _ from 'lodash';
 import { IndividualCountryDialogComponent } from './individual-country-dialog/individual-country-dialog.component';
+import { Subject } from 'rxjs';
 
 // Leaflet maps - Has to be declared as 'L'
 declare let L;
@@ -18,8 +19,6 @@ declare let L;
 })
 export class HomeComponent implements OnInit {
 
-  constructor(protected getDataService: GetDataService, protected dialog: MatDialog) { }
-
   coronaStats: CoronaStatsObject;
   // Add object interface later on
   coronaCountryStats: any;
@@ -27,9 +26,27 @@ export class HomeComponent implements OnInit {
   leafletMap: any;
   searchText: string;
   showStatsMobile: boolean;
+  userActivity;
+  userInactive: Subject<any> = new Subject();
+  showOverlay: boolean;
+
+  constructor(protected getDataService: GetDataService, protected dialog: MatDialog) {
+    // Sets a 10 minute time out
+    this.setTimeout();
+    // Show overlay when user is inactive for 10 minutes
+    this.userInactive.subscribe(() => {
+      this.showOverlay = true;
+    });
+
+  }
+
+  @HostListener('window:mousemove') refreshUserState() {
+    // If user has interacted with the website then the timeout is restarted
+    clearTimeout(this.userActivity);
+    this.setTimeout();
+  }
 
   ngOnInit() {
-
     // Initialise map
     this.leafletMap = L.map('map', {
       center: [13.7466, 100.5393],
@@ -38,7 +55,8 @@ export class HomeComponent implements OnInit {
     });
 
     // Set map bounds to make sure user can't navigate too far from the center
-    this.leafletMap.setMaxBounds(this.leafletMap.getBounds());
+    // Todo - Uncomment this back, when bounds are working for mobile
+    //this.leafletMap.setMaxBounds(this.leafletMap.getBounds());
     // Move zoom buttons to the bottom right corner
     L.control.zoom({
       position: 'bottomright'
@@ -61,7 +79,6 @@ export class HomeComponent implements OnInit {
   // Get corona stats for total cases
   async getAllCoronaStats() {
     this.coronaStats = await this.novelCovid.all();
-    console.log(new Date(this.coronaStats.updated));
   }
 
   // Get corona stats for each individual country
@@ -120,6 +137,16 @@ export class HomeComponent implements OnInit {
         countryStats: stats
       }
     });
+  }
+
+  // Set a 10 minute timeout
+  setTimeout() {
+    this.userActivity = setTimeout(() => this.userInactive.next(undefined), 10 * 60 * 1000);
+  }
+
+  // Refresh window
+  refresh() {
+    window.location.reload();
   }
 
 }

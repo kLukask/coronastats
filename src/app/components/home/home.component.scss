@@ -2,6 +2,28 @@
   @media (max-width: 950px) { @content }
 }
 
+.overlay-container {
+  background-color: rgba(88, 99, 106, 0.5);
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  z-index: 2000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .overlay-container__button {
+    border: none;
+    width: 90px;
+    height: 40px;
+    border-radius: 8%;
+    cursor: pointer;
+    color: black;
+    font-weight: bold;
+    outline: none;
+  }
+}
+
 .home-container {
   display: flex;
   flex-flow: row wrap;
@@ -111,7 +133,6 @@
 
   .mobile-search-bar {
     width: 100%;
-    height: 100%;
     z-index: 1001;
     position: absolute;
     display: none;
@@ -174,6 +195,10 @@
     }
   }
 
+  .mobile-search-bar.expanded {
+    height: 100%;
+  }
+
   #map {
     height: 100%;
     width: 100%;
@@ -203,14 +228,13 @@
       margin: 0;
       padding: 2px;
       font-weight: bold;
-      width: 70%;
+      width: 90%;
     }
   }
 
   padding: 0;
   height: 200px;
   width: 150px;
-  background-color: transparent;
 }
 
 ::ng-deep .leaflet-popup-tip-container {

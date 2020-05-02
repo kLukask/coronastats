@@ -11,9 +11,7 @@ export class IndividualCountryDialogComponent implements OnInit {
   constructor(protected dialogRef: MatDialogRef<IndividualCountryDialogComponent>,
               @Inject(MAT_DIALOG_DATA) public data: any) { }
 
-  ngOnInit() {
-    console.log(this.data);
-  }
+  ngOnInit() {}
 
   closeDialog() {
     this.dialogRef.close();

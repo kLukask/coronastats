@@ -1,0 +1,52 @@
+.individual-modal-container {
+  display: flex;
+  flex-flow: row wrap;
+}
+.individual-modal-container .individual-modal-container__heading-section {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+}
+.individual-modal-container
+  .individual-modal-container__heading-section
+  .heading-section__country-flag {
+  height: 100px;
+  width: 150px;
+  border-radius: 10%;
+}
+.individual-modal-container .individual-modal-container__stats-section {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  margin-top: 25px;
+}
+.individual-modal-container
+  .individual-modal-container__stats-section
+  .stats-section__cases {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+}
+.individual-modal-container
+  .individual-modal-container__stats-section
+  .stats-section__cases
+  .cases__heading {
+  width: 100%;
+  margin: 0;
+  text-align: center;
+  font-size: 1.8rem;
+  font-weight: bold;
+}
+.individual-modal-container
+  .individual-modal-container__stats-section
+  .stats-section__cases
+  .cases__data {
+  width: 100%;
+  text-align: center;
+  margin: 0;
+  font-size: 1.2rem;
+}
+::ng-deep .cdk-overlay-pane {
+  width: 550px !important;
+  height: 260px !important;
+}
