@@ -79,6 +79,8 @@ export class HomeComponent implements OnInit {
   // Get corona stats for total cases
   async getAllCoronaStats() {
     this.coronaStats = await this.novelCovid.all();
+    const test = await this.novelCovid.countries();
+    console.log(test);
   }
 
   // Get corona stats for each individual country
@@ -87,17 +89,19 @@ export class HomeComponent implements OnInit {
       // Sort by total cases
       await this.novelCovid.countries(null, { sort: 'cases'}).then((result) => {
       this.coronaCountryStats = result;
-      this.processPopups();
+      this.processPopups(null);
     });
 
   }
 
   // Add popus to the map
-  processPopups() {
+  processPopups(mapZoomLevel) {
+    let mapCircle;
     // Loop through the array of every country
     for (const country of this.coronaCountryStats) {
       // Create a circle popup and place it on top of every country
-      const mapCircle = L.circle([country.countryInfo.lat, country.countryInfo.long], {
+
+      mapCircle = L.circle([country.countryInfo.lat, country.countryInfo.long], {
         color: 'red',
         radius: country.cases
       }).addTo(this.leafletMap);
@@ -128,8 +132,10 @@ export class HomeComponent implements OnInit {
     }
   }
 
-
+  // Open a modal that displays individual country stats in more detail
   openIndividualCountryDialog(stats) {
+    // Close expanded country list in mobile view
+    this.showStatsMobile = false;
     const dialogRef = this.dialog.open(IndividualCountryDialogComponent, {
       height: '500px',
       width: '900px',
@@ -147,6 +153,14 @@ export class HomeComponent implements OnInit {
   // Refresh window
   refresh() {
     window.location.reload();
+  }
+
+  // When search bar is clicked on, expanded list of countries drops down
+  openMobileSearch() {
+    // Flag to tell the list to be displayed
+    this.showStatsMobile = true;
+    // Close all modals when search bar has been clicked
+    this.dialog.closeAll();
   }
 
 }

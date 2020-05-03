@@ -35,12 +35,12 @@
   </div>
 
   <div class="mobile-search-bar" [class.expanded]="showStatsMobile">
-    <input placeholder="Search country..." (click)="showStatsMobile = true" [(ngModel)]="searchText"  />
+    <input placeholder="Search country..." (click)="openMobileSearch()" [(ngModel)]="searchText" />
     <div class="close-icon" (click)="showStatsMobile = false" >
       <img src="../../../assets/close_icon.svg" />
     </div>
     <div class="mobile-search-bar__stats" *ngIf="showStatsMobile">
-      <div class="individual-country" *ngFor="let singleCountry of coronaCountryStats | searchFilter: searchText">
+      <div class="individual-country" *ngFor="let singleCountry of coronaCountryStats | searchFilter: searchText" (click)="openIndividualCountryDialog(singleCountry)">
         <img class="country-flag" src='{{ singleCountry.countryInfo.flag }}'>
         <p>{{ singleCountry.country }}</p>
         <p>{{ singleCountry.cases }}</p>

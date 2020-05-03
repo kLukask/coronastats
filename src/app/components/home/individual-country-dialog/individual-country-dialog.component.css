@@ -20,6 +20,11 @@
   justify-content: center;
   margin-top: 25px;
 }
+@media (max-width: 500px) {
+  .individual-modal-container .individual-modal-container__stats-section {
+    flex-flow: column;
+  }
+}
 .individual-modal-container
   .individual-modal-container__stats-section
   .stats-section__cases {
@@ -46,7 +51,50 @@
   margin: 0;
   font-size: 1.2rem;
 }
+@media (max-width: 950px) {
+  .individual-modal-container
+    .individual-modal-container__stats-section
+    .stats-section__cases
+    .cases__heading {
+    font-size: 1.4rem;
+  }
+  .individual-modal-container
+    .individual-modal-container__stats-section
+    .stats-section__cases
+    .cases__data {
+    font-size: 1rem;
+  }
+}
+@media (max-width: 500px) {
+  .individual-modal-container
+    .individual-modal-container__stats-section
+    .stats-section__cases {
+    margin-bottom: 5px;
+  }
+  .individual-modal-container
+    .individual-modal-container__stats-section
+    .stats-section__cases
+    .cases__heading {
+    font-size: 1.2rem;
+  }
+  .individual-modal-container
+    .individual-modal-container__stats-section
+    .stats-section__cases
+    .cases__data {
+    font-size: 0.8rem;
+  }
+}
 ::ng-deep .cdk-overlay-pane {
   width: 550px !important;
   height: 260px !important;
+}
+@media (max-width: 950px) {
+  ::ng-deep .cdk-overlay-pane {
+    width: 400px !important;
+  }
+}
+@media (max-width: 500px) {
+  ::ng-deep .cdk-overlay-pane {
+    height: 380px !important;
+  }
 }

@@ -1,3 +1,11 @@
+@mixin mobile-view {
+  @media (max-width: 950px) { @content }
+}
+
+@mixin mobile-view-smaller {
+  @media (max-width: 500px) { @content }
+}
+
 .individual-modal-container {
   display: flex;
   flex-flow: row wrap;
@@ -20,6 +28,10 @@
     justify-content: center;
     margin-top: 25px;
 
+    @include mobile-view-smaller() {
+      flex-flow: column;
+    }
+
     .stats-section__cases {
       display: flex;
       flex-flow: row wrap;
@@ -39,6 +51,28 @@
         margin: 0;
         font-size: 1.2rem;
       }
+
+      @include mobile-view() {
+        .cases__heading {
+          font-size: 1.4rem;
+        }
+
+        .cases__data {
+          font-size: 1rem;
+        }
+      }
+
+      @include mobile-view-smaller() {
+        margin-bottom: 5px;
+
+        .cases__heading {
+          font-size: 1.2rem;
+        }
+
+        .cases__data {
+          font-size: 0.8rem;
+        }
+      }
     }
   }
 }
@@ -47,4 +81,12 @@
 ::ng-deep .cdk-overlay-pane {
   width: 550px !important;
   height: 260px !important;
+
+  @include mobile-view() {
+    width: 400px !important;
+  }
+
+  @include mobile-view-smaller() {
+    height: 380px !important;
+  }
 }
